@@ -52,7 +52,7 @@ az group create -n $rgName -l $location --tags $tags
 # Create user-assigned managed identity
 write-host "Creating User Identity $userIdentity ..." 
 az identity create -g $rgName -n $userIdentity
-Start-Sleep -Seconds 10
+Start-Sleep -Seconds 15
 $UserID = az identity list --query [*].principalId --out tsv
 Write-Host "Here is the UserID : $userID"
 
@@ -61,9 +61,12 @@ az role assignment create --assignee $UserID --role Contributor --scope /subscri
 
 # Create Storage account and container for Terraform
 write-host "Creating Storage Account (Standard LRS, StorageV2 kind)  ..." 
-az storage account create -n $storageAccountName -g $rgName -l $location --sku Standard_LRS --min-tls-version TLS1_2 --allow-shared-key-access false
+az storage account create -n $storageAccountName -g $rgName -l $location --sku Standard_LRS --min-tls-version TLS1_2 --allow-shared-key-access true
+
+write-host "Getting storage account keys..."
+$key = az storage account keys list --account-name $storageAccountName -g $rgName --query [0].value --output tsv
 
 write-host "Creating Container ..."
-az storage container create -n $containerName --account-name $storageAccountName --public-access off
+az storage container create -n $containerName --account-name $storageAccountName --public-access off  --account-key $key
 
 write-host "End of script..."
