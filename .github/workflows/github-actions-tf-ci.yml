@@ -1,0 +1,24 @@
+name: Terraform CI Build
+on:
+    push:
+        branches: [$default-branch]
+    pull_request: 
+        branches: [$default-branch]
+jobs:
+    Version:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+              name: Checkout
+              with:
+                fetch-depth: 0
+            - uses: gittools/actions/gitversion/setup@v0
+              name: Install Giversion 5.x
+              with:
+                versionSpec: '5.x'
+            - uses: gittools/actions/gitversion/execute@v0
+              name: Determine Version
+              with:
+                useConfigFile: true
+                configFilePath: '.gitversion.yml'
