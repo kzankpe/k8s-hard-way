@@ -21,4 +21,4 @@ jobs:
               name: Determine Version
               with:
                 useConfigFile: true
-                configFilePath: '.gitversion.yml'
+                configFilePath: '.gitversion'
