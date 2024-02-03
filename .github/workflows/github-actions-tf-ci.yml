@@ -22,3 +22,24 @@ jobs:
               with:
                 useConfigFile: true
                 configFilePath: '.gitversion'
+
+    Terraform:
+        runs-on: ubuntu-latest
+        name: Terraform Cheks
+        defaults:
+          run:
+            working-directory: src
+
+        steps:
+          - uses: actions/checkout@v3
+            name: Checkout
+          - uses: hashicorp/setup-terraform@v3
+            with:
+              terraform_version: "1.7.2-1"
+          - run: terraform init -backend=false
+            name: Terrform Init
+          - run: terraform fmt -check
+            name: Terraform format check
+            continue-on-error: true
+          - run: terraform validate -no-color
+            name: Terraform validate
