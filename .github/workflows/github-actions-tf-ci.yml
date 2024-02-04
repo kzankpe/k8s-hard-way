@@ -55,23 +55,24 @@ jobs:
           - uses: actions/checkout@v3
             name: Checkout
 
-          - run: |
-              #!/bin/bash
-              cat << EOT > backend.tfvars 
-              resource_group_name  = "${secrets.ARM_RESOURCE_GROUP_NAME}"
-              storage_account_name = "${secrets.ARM_STORAGE_ACCOUNT_NAME}"
-              container_name       = "${secrets.ARM_CONTAINER_NAME}"
-              key                  = "${secrets.ARM_TF_KEY}"
-              use_msi              = true
-              subscription_id      = "${secrets.ARM_SUBSCRIPTION_ID}"
-              tenant_id            = "${secrets.ARM_TENANT_ID}"
-              EOT 
           - uses: hashicorp/setup-terraform@v3
             with:
               terraform_version: "1.7.2"
-          - run: terraform init -backend=./backend.tfvars
+          - run: terraform init -backend-config="resource_group_name=$RESOURCE_GROUP" -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="key=$TF_KEY" -backend-config="use_msi=true"
+            env:
+              RESOURCE_GROUP: "${secrets.ARM_RESOURCE_GROUP_NAME}"
+              ARM_TENANT_ID: "${secrets.ARM_TENANT_ID}"
+              ARM_SUBSCRIPTION_ID: "${secrets.ARM_SUBSCRIPTION_ID}"
+              ARM_CLIENT_ID: "${secrets.ARM_CLIENT_ID}"
+              STORAGE_ACCOUNT: "${secrets.ARM_STORAGE_ACCOUNT_NAME}"
+              CONTAINER_NAME: "${secrets.ARM_CONTAINER_NAME}"
+              TF_KEY: "${secrets.ARM_TF_KEY}"
             name: Terrform Init
           - run : terraform plan
+            env:
+              ARM_TENANT_ID: "${secrets.ARM_TENANT_ID}"
+              ARM_SUBSCRIPTION_ID: "${secrets.ARM_SUBSCRIPTION_ID}"
+              ARM_CLIENT_ID: "${secrets.ARM_CLIENT_ID}"
             name: Terraform plan
             id: plan
             continue-on-error: true
