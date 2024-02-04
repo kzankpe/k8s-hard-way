@@ -56,6 +56,7 @@ jobs:
             name: Checkout
 
           - run: |
+              #!/bin/bash
               cat << EOT > backend.tfvars 
               resource_group_name  = "${secrets.ARM_RESOURCE_GROUP_NAME}"
               storage_account_name = "${secrets.ARM_STORAGE_ACCOUNT_NAME}"
