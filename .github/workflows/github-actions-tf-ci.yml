@@ -55,8 +55,8 @@ jobs:
           - uses: actions/checkout@v3
             name: Checkout
 
-          - run:  |
-              cat > backend.tfvars << EOF
+          - run: |
+              cat << EOT > backend.tfvars 
               resource_group_name  = "${secrets.ARM_RESOURCE_GROUP_NAME}"
               storage_account_name = "${secrets.ARM_STORAGE_ACCOUNT_NAME}"
               container_name       = "${secrets.ARM_CONTAINER_NAME}"
@@ -64,7 +64,7 @@ jobs:
               use_msi              = true
               subscription_id      = "${secrets.ARM_SUBSCRIPTION_ID}"
               tenant_id            = "${secrets.ARM_TENANT_ID}"
-              EOF 
+              EOT 
           - uses: hashicorp/setup-terraform@v3
             with:
               terraform_version: "1.7.2"
