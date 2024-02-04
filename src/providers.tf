@@ -5,10 +5,12 @@ terraform {
       version = "=3.90.0"
     }
   }
+  backend "azurerm" {
+
+  }
 }
 
 provider "azurerm" {
   features {}
-  use_msi      = true
-  msi_endpoint = var.msi_endpoint
+  use_msi = true
 }

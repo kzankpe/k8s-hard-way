@@ -2,9 +2,6 @@
 # AZURE PROVIDER CONFIGURATION
 #####################################################
 
-variable "msi_endpoint" {
-  description = "Managned identity for deployment"
-}
 
 #####################################################
 # GENERAL VARIABLES
