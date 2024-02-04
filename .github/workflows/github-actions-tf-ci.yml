@@ -96,13 +96,13 @@ jobs:
                 })
 
                 // 2. Prepare format of the comment
-                const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-                #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-                #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+                const output = `#### Terraform Format and Style 🖌
+                #### Terraform Initialization ⚙️
+                #### Terraform Validation 🤖
                 <details><summary>Validation Output</summary>
 
                 \`\`\`\n
-                ${{ steps.validate.outputs.stdout }}
+                Validation
                 \`\`\`
 
                 </details>
@@ -117,7 +117,7 @@ jobs:
 
                 </details>
 
-                *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+                *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
                 // 3. If we have a comment, update it, otherwise create a new one
                 if (botComment) {
