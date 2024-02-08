@@ -34,7 +34,37 @@ param (
     [string]$storageAccountName,
 
     [Parameter()]
-    [string]$containerName
+    [string]$containerName,
+
+    [Parameter()]
+    [string]$vnetName,
+
+    [Parameter()]
+    [string]$vnetAddressSpace,
+
+    [Parameter()]
+    [string]$subnetName ,
+
+    [Parameter()]
+    [string]$subnetAddressSpace,
+
+    [Parameter()]
+    [string]$vmName,
+
+    
+    [Parameter()]
+    [string]$vmImage = "Ubuntu2204",
+
+    [Parameter()]
+    [string]$vmSize = "Standard_B2ms",
+
+    [Parameter()]
+    [string]$vmAdmin,
+
+    [Parameter()]
+    [securestring]$vmAdminPassword,
+
+
 )
 
 # Connect to Azure
@@ -54,7 +84,8 @@ write-host "Creating User Identity $userIdentity ..."
 az identity create -g $rgName -n $userIdentity
 Start-Sleep -Seconds 15
 $UserID = az identity list --query [*].principalId --out tsv
-Write-Host "Here is the UserID : $userID"
+$userResourceID = az identity show -g $rgName -n $userIdentity --query 'id' --output tsv
+Write-Host "Here is the UserID : $userResourceID"
 
 write-host "Adding role to the identity..."
 az role assignment create --assignee $UserID --role Contributor --scope /subscriptions/$subscriptionId
@@ -68,5 +99,14 @@ $key = az storage account keys list --account-name $storageAccountName -g $rgNam
 
 write-host "Creating Container ..."
 az storage container create -n $containerName --account-name $storageAccountName --public-access off  --account-key $key
+
+write-host "Creating Virtual network..."
+az network vnet create --name $vnetName --resource-group $rgName --address-prefix $vnetAddressSpace
+
+write-host "Creating a subnet..."
+az network vnet subnet create -g $rgName --vnet-name $vnetName -n $subnetName --address-prefixes $subnetAddressSpace
+
+write-host "Creating Azure virtual machine..."
+az vm create --name $vmName --resource-group $rgName --image $vmImage --assign-identity $userResourceID --computer-name $vmName --os-disk-size-gb 126 --size $vmSize --vnet-name $vnetName --subnet $subnetName --admin-username $vmAdmin --admin-password $vmAdminPassword
 
 write-host "End of script..."
