@@ -58,16 +58,16 @@ jobs:
           - uses: hashicorp/setup-terraform@v3
             with:
               terraform_version: "1.7.2"
-          - run: terraform init -backend-config="resource_group_name=$RESOURCE_GROUP" -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="key=$TF_KEY"
+          - run: terraform init -backend-config="resource_group_name=$RESOURCE_GROUP" -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="key=$TF_KEY"
             env:
-              RESOURCE_GROUP: "${secrets.ARM_RESOURCE_GROUP_NAME}"
-              ARM_TENANT_ID: "${secrets.ARM_TENANT_ID}"
-              ARM_SUBSCRIPTION_ID: "${secrets.ARM_SUBSCRIPTION_ID}"
-              ARM_CLIENT_ID: "${secrets.ARM_CLIENT_ID}"
+              RESOURCE_GROUP: "${{ secrets.ARM_RESOURCE_GROUP_NAME }}"
+              ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
+              ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
+              ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
               ARM_USE_MSI: true
-              STORAGE_ACCOUNT: "${secrets.ARM_STORAGE_ACCOUNT_NAME}"
-              CONTAINER_NAME: "${secrets.ARM_CONTAINER_NAME}"
-              TF_KEY: "${secrets.ARM_TF_KEY}"
+              STORAGE_ACCOUNT: "${{ secrets.ARM_STORAGE_ACCOUNT_NAME }}"
+              CONTAINER_NAME: "${{ secrets.ARM_CONTAINER_NAME }}"
+              TF_KEY: "${{ secrets.ARM_TF_KEY }}"
             name: Terrform Init
           - run : terraform plan
             env:
