@@ -46,7 +46,7 @@ jobs:
 
 
     Planning:
-        runs-on: ubuntu-latest
+        runs-on: self-hosted
         name: Terraform Plan
         defaults:
           run:
