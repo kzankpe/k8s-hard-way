@@ -38,7 +38,7 @@ jobs:
               ARM_USE_MSI: true
             name: Terraform plan
             id: plan
-          - run: terraform apply -input=false tfplan -auto-approve
+          - run: terraform apply -input=false tfplan
             id: apply
             env:
                 ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
