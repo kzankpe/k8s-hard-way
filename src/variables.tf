@@ -2,9 +2,6 @@
 # AZURE PROVIDER CONFIGURATION
 #####################################################
 
-variable "msi_endpoint" {
-  description = "Managned identity for deployment"
-}
 
 #####################################################
 # GENERAL VARIABLES
@@ -32,21 +29,21 @@ variable "vnet_name" {
   default     = "kzk8svnetne01"
 }
 variable "vnet_address_space" {
-  description = "VNet addres space. Default is 10.10.0.0/16"
+  description = "VNet addres space. Default is 10.11.0.0/16"
   type        = list(string)
-  default     = ["10.10.0.0/16"]
+  default     = ["10.11.0.0/16"]
 }
 
 variable "cluster_sub_address" {
   description = "Cluster subnet"
   type        = string
-  default     = "10.10.1.0/24"
+  default     = "10.11.1.0/24"
 }
 
 variable "worker_sub_address" {
   description = "Worker subnet"
   type        = string
-  default     = "10.10.2.0/24"
+  default     = "10.11.2.0/24"
 }
 
 variable "cluster_sub_name" {
