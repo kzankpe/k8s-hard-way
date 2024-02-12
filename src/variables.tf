@@ -57,3 +57,39 @@ variable "worker_sub_name" {
   type        = string
   default     = "kzclworkersub"
 }
+
+variable "public_ip_name" {
+  type        = string
+  description = "Public IP name for the loadbalancer"
+  default     = "kzpipne01"
+}
+
+variable "load_balancer_name" {
+  type        = string
+  description = "Load Balancer name"
+  default     = "kzlbne01"
+}
+
+variable "admin_vnet_rg" {
+  type        = string
+  description = "Admin network resource group"
+  default     = "rgnetne01"
+}
+
+variable "admin_vnet" {
+  type        = string
+  description = "Admin network"
+  default     = "kzk8svnetne01"
+}
+
+variable "admin2workload" {
+  type        = string
+  description = "Peering from admin to workload"
+  default     = "admintoworkload"
+}
+
+variable "workload2admin" {
+  type        = string
+  description = "Peering from workload to admin"
+  default     = "workloadtoadmin"
+}
