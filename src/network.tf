@@ -13,12 +13,12 @@ resource "azurerm_virtual_network" "this" {
   subnet {
     name           = var.cluster_sub_name
     address_prefix = var.cluster_sub_address
-    security_group = var.net_security
+    security_group = azurerm_network_security_group.this.id
   }
 
   subnet {
     name           = var.worker_sub_name
     address_prefix = var.worker_sub_address
-    security_group = var.net_security
+    security_group = azurerm_network_security_group.this.id
   }
 }
