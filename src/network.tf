@@ -1,5 +1,5 @@
 resource "azurerm_network_security_group" "this" {
-  name                = ""
+  name                = var.net_security
   resource_group_name = azurerm_resource_group.network.name
   location            = azurerm_resource_group.network.location
 }
