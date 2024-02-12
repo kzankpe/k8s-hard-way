@@ -22,3 +22,20 @@ resource "azurerm_virtual_network" "this" {
     security_group = azurerm_network_security_group.this.id
   }
 }
+
+resource "azurerm_public_ip" "this" {
+  name                = var.public_ip_name
+  location            = azurerm_resource_group.network.location
+  resource_group_name = azurerm_resource_group.network.name
+  allocation_method   = "static"
+}
+
+resource "azurerm_lb" "this" {
+  name                = var.load_balancer_name
+  resource_group_name = azurerm_resource_group.network.name
+  location            = azurerm_resource_group.network.location
+  frontend_ip_configuration {
+    name                 = "PublicAddress"
+    public_ip_address_id = azurerm_public_ip.this.id
+  }
+}
