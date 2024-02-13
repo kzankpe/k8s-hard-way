@@ -76,7 +76,7 @@ variable "admin_vnet_rg" {
   default     = "rgnetne01"
 }
 
-variable "admin_vnet" {
+variable "admin_vnet_name" {
   type        = string
   description = "Admin network"
   default     = "kzk8svnetne01"
