@@ -43,13 +43,13 @@ resource "azurerm_lb" "this" {
 resource "azurerm_virtual_network_peering" "a2w" {
   name                      = var.admin2workload
   resource_group_name       = var.admin_vnet_rg
-  virtual_network_name      = var.admin_vnet
+  virtual_network_name      = var.admin_vnet_name
   remote_virtual_network_id = azurerm_virtual_network.this.id
 }
 
 resource "azurerm_virtual_network_peering" "w2a" {
   name                      = var.workload2admin
-  resource_group_name       = var.admin_vnet_rg
+  resource_group_name       = azurerm_resource_group.network.name
   virtual_network_name      = azurerm_virtual_network.this.name
   remote_virtual_network_id = data.azurerm_virtual_network.admin.id
 }
