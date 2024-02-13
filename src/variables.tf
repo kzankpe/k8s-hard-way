@@ -73,13 +73,13 @@ variable "load_balancer_name" {
 variable "admin_vnet_rg" {
   type        = string
   description = "Admin network resource group"
-  default     = "rgnetne01"
+  default     = "rgmgtne01"
 }
 
 variable "admin_vnet_name" {
   type        = string
   description = "Admin network"
-  default     = "kzk8svnetne01"
+  default     = "vnetmgtne01"
 }
 
 variable "admin2workload" {
