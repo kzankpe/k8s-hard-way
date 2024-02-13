@@ -39,3 +39,17 @@ resource "azurerm_lb" "this" {
     public_ip_address_id = azurerm_public_ip.this.id
   }
 }
+
+resource "azurerm_virtual_network_peering" "a2w" {
+  name                      = var.admin2workload
+  resource_group_name       = var.admin_vnet_rg
+  virtual_network_name      = var.admin_vnet
+  remote_virtual_network_id = azurerm_virtual_network.this.id
+}
+
+resource "azurerm_virtual_network_peering" "w2a" {
+  name                      = var.workload2admin
+  resource_group_name       = var.admin_vnet_rg
+  virtual_network_name      = azurerm_virtual_network.this.name
+  remote_virtual_network_id = data.azurerm_virtual_network.admin.id
+}
