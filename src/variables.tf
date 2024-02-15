@@ -163,3 +163,9 @@ variable "vm_sku" {
   description = "Image sku"
   default     = "22_04-lts-gen2"
 }
+
+variable "cluster_availability_set" {
+  type        = string
+  description = "Availability set name"
+  default     = "kzavsne01"
+}
