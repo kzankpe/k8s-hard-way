@@ -93,3 +93,73 @@ variable "workload2admin" {
   description = "Peering from workload to admin"
   default     = "workloadtoadmin"
 }
+
+#####################################################
+# CLUSTER VARIABLES
+#####################################################
+
+variable "cluster_rg_name" {
+  type        = string
+  description = "Cluster resource group name"
+  default     = "kzrgne01"
+}
+
+variable "cluster_prefix" {
+  type        = string
+  description = "Cluster instance prefix name"
+  default     = "kzvmne01"
+}
+
+variable "cluster_count" {
+  type        = number
+  description = "Cluster instance number"
+  default     = 3
+}
+
+variable "admin_user_name" {
+  type        = string
+  description = "admin username"
+  default     = "efad5rcU"
+}
+
+variable "cluster_size" {
+  type        = string
+  description = "Cluster VM size"
+  default     = "Standard_B2ms"
+}
+
+variable "vm_disk_caching" {
+  type        = string
+  description = "VM caching configuration"
+  default     = "ReadWrite"
+}
+
+variable "storage_account_type" {
+  type        = string
+  description = "Virtual Machine storage account type"
+  default     = "StandardSSD_LRS"
+}
+
+variable "vm_disk_size" {
+  type        = number
+  description = "VM disk size in GB"
+  default     = 128
+}
+
+variable "vm_publisher" {
+  type        = string
+  description = "Publisher for the image"
+  default     = "Canonical"
+}
+
+variable "vm_offer" {
+  type        = string
+  description = "VM offer"
+  default     = "0001-com-ubuntu-server-jammy"
+}
+
+variable "vm_sku" {
+  type        = string
+  description = "Image sku"
+  default     = "22_04-lts-gen2"
+}
