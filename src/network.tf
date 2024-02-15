@@ -10,17 +10,30 @@ resource "azurerm_virtual_network" "this" {
   location            = azurerm_network_security_group.this.location
   address_space       = var.vnet_address_space
 
-  subnet {
-    name           = var.cluster_sub_name
-    address_prefix = var.cluster_sub_address
-    security_group = azurerm_network_security_group.this.id
-  }
+}
 
-  subnet {
-    name           = var.worker_sub_name
-    address_prefix = var.worker_sub_address
-    security_group = azurerm_network_security_group.this.id
-  }
+resource "azurerm_subnet" "cluster" {
+  name                 = var.cluster_sub_name
+  resource_group_name  = azurerm_resource_group.network.name
+  virtual_network_name = azurerm_virtual_network.this.name
+  address_prefixes     = [var.cluster_sub_address]
+}
+
+resource "azurerm_subnet" "worker" {
+  name                 = var.worker_sub_address
+  resource_group_name  = azurerm_resource_group.network.name
+  virtual_network_name = azurerm_virtual_network.this.name
+  address_prefixes     = [var.cluster_sub_address]
+}
+
+resource "azurerm_subnet_network_security_group_association" "cluster" {
+  subnet_id                 = azurerm_subnet.cluster.id
+  network_security_group_id = azurerm_network_security_group.this.id
+}
+
+resource "azurerm_subnet_network_security_group_association" "worker" {
+  subnet_id                 = azurerm_subnet.worker.id
+  network_security_group_id = azurerm_network_security_group.this.id
 }
 
 resource "azurerm_public_ip" "this" {
