@@ -53,6 +53,11 @@ resource "azurerm_lb" "this" {
   }
 }
 
+resource "azurerm_lb_backend_address_pool" "cluster" {
+  name            = "kzclustBackendPool"
+  loadbalancer_id = azurerm_lb.this.id
+}
+
 resource "azurerm_virtual_network_peering" "a2w" {
   name                      = var.admin2workload
   resource_group_name       = var.admin_vnet_rg
