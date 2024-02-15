@@ -19,7 +19,7 @@ resource "azurerm_network_interface" "cluster" {
   ip_configuration {
     name                          = "ipconfig"
     subnet_id                     = azurerm_subnet.cluster.id
-    private_ip_address_allocation = "Static"
+    private_ip_address_allocation = "Dynamic"
   }
 }
 
