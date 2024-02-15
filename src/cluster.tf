@@ -18,7 +18,7 @@ resource "azurerm_network_interface" "cluster" {
   location            = azurerm_resource_group.cluster.location
   ip_configuration {
     name                          = "ipconfig"
-    subnet_id                     = azurerm_virtual_network.this.id
+    subnet_id                     = azurerm_subnet.cluster.id
     private_ip_address_allocation = "Static"
   }
 }
