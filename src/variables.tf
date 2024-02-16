@@ -169,3 +169,38 @@ variable "cluster_availability_set" {
   description = "Availability set name"
   default     = "kzavsne01"
 }
+
+#####################################################
+# CLUSTER VARIABLES
+#####################################################
+
+variable "worker_availability_set" {
+  type        = string
+  description = "Availability set name Worker"
+  default     = "kzavsne02"
+}
+
+variable "worker_rg_name" {
+  type        = string
+  description = "Cluster resource group name"
+  default     = "kzrgne02"
+}
+
+variable "worker_prefix" {
+  type        = string
+  description = "Cluster instance prefix name"
+  default     = "kzvmne02"
+}
+
+
+variable "worker_count" {
+  type        = number
+  description = "Worker instance number"
+  default     = 3
+}
+
+variable "worker_size" {
+  type        = string
+  description = "Cluster VM size"
+  default     = "Standard_DS2_v2"
+}
