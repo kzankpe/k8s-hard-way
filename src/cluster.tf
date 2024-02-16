@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "cluster" {
 
 }
 
-# Generate password for 
+# Generate password for Cluster
 resource "random_password" "cluster" {
   count   = var.cluster_count
   length  = 18
