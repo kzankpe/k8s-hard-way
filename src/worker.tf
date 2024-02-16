@@ -30,7 +30,7 @@ resource "azurerm_network_interface" "worker" {
   }
 }
 
-resource "azurerm_linux_virtual_machine" "cluster" {
+resource "azurerm_linux_virtual_machine" "worker" {
   count                           = var.worker_count
   name                            = "${var.worker_prefix}${format("%02s", count.index + 1)}"
   resource_group_name             = azurerm_resource_group.worker.name
@@ -42,15 +42,15 @@ resource "azurerm_linux_virtual_machine" "cluster" {
   disable_password_authentication = false
   availability_set_id             = azurerm_availability_set.worker.id
   os_disk {
-    caching = var.vm_disk_caching
+    caching              = var.vm_disk_caching
     storage_account_type = var.storage_account_type
-    disk_size_gb = var.vm_disk_size
+    disk_size_gb         = var.vm_disk_size
   }
 
   source_image_reference {
     publisher = var.vm_publisher
-    offer = var.vm_offer
-    sku = var.vm_sku
-    version = "latest"
+    offer     = var.vm_offer
+    sku       = var.vm_sku
+    version   = "latest"
   }
 }
