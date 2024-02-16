@@ -125,7 +125,7 @@ variable "admin_user_name" {
 variable "cluster_size" {
   type        = string
   description = "Cluster VM size"
-  default     = "Standard_B2ms"
+  default     = "Standard_D2_v2"
 }
 
 variable "vm_disk_caching" {
