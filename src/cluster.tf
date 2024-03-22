@@ -57,3 +57,4 @@ resource "azurerm_linux_virtual_machine" "cluster" {
 
 #resource "azurerm_network_interface_backend_address_pool_association" "" {
 #}
+
